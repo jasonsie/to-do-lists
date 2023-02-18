@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { signInWithGoogle } from '@/utilis/firebaseAuth';
+import { signInWithGoogle } from '@/utilis/firebase';
 import css from '../styles/Home.module.css';
 import Main from '@/components/main';
 
 const Auth = (props) => {
   const [user, setUser] = useState({});
-
   function signIn() {
     const userPromised = signInWithGoogle();
     userPromised

@@ -1,7 +1,18 @@
 import firebase from 'firebase/compat/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
+// const config = {
+//   apiKey: process.env.NEXT_PUBLIC_APIKEY,
+//   authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+//   databaseURL: process.env.NEXT_PUBLIC_DATABASRURL,
+//   projectId: process.env.NEXT_PUBLIC_PROJECTID,
+//   storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+//   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+//   appId: process.env.NEXT_PUBLIC_APPID,
+//   measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID,
+// };
 const config = {
   apiKey: 'AIzaSyDIxYuMUjIoQ6iQP0rRBk4P4Fxxi_sy7wc',
   authDomain: 'to-do-lists-b7947.firebaseapp.com',
@@ -13,10 +24,23 @@ const config = {
   measurementId: 'G-ZK2N195H1P',
 };
 
+let app;
 if (!firebase.apps.length) {
-  firebase.initializeApp(config);
+  app = firebase.initializeApp(config);
 }
-
+const auth = getAuth(app);
 const firestore = firebase.firestore();
-
-export default firestore;
+const provider = new GoogleAuthProvider();
+const signInWithGoogle = async () => {
+  let user = {};
+  await signInWithPopup(auth, provider)
+    .then((result) => {
+      const { displayName, email, photoURL, uid } = result.user;
+      user = { id: uid, name: displayName, email: email, image: photoURL };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return user;
+};
+export { firestore, signInWithGoogle };
