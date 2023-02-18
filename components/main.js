@@ -26,7 +26,7 @@ const Main = (props) => {
   }
 
   function actCreate(e) {
-    if (e.which === 13) {
+    if (e.which === 13 && newItem !== '') {
       const appendItem = { name: newItem, checked: false };
       const item = createItem(user.id, appendItem);
       item
