@@ -53,3 +53,7 @@
 | Collections | Documents          | Fields            |
 | ----------- | ------------------ | ----------------- |
 | user's id   | every note in list | {id,name,checked} |
+
+# SRC
+
+- https://codepen.io/ZonFire99/pen/LYKKbm
